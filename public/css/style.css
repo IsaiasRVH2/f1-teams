@@ -1,0 +1,57 @@
+/* style.css */
+
+/* Aplicar un borde inferior sutil a cada fila */
+.table-custom tbody tr {
+  border-bottom: 1px solid #dee2e6; /* Gris claro */
+  transition: background-color 0.2s ease;
+}
+
+/* Quitar el borde en la última fila (opcional) */
+.table-custom tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* Cambiar el color de fondo al pasar el ratón */
+.table-custom tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Ajustar ancho de la columna de posición */
+.rank-col {
+  width: 60px;
+  text-align: center;
+}
+
+/* Ajustar ancho de la columna de puntos */
+.points-col {
+  width: 100px;
+}
+
+/* Darle un poco más de tamaño a la "team-name" */
+.table-custom .team-name {
+  font-size: 1.25rem;
+}
+
+/* Opcional: Ajustar la columna de pilotos si quieres que se corte el texto */
+.pilots-col {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar-custom {
+  background-color: #b90505;
+}  
+
+.navbar-brand {
+  font-size: xx-large;
+}
+
+#nextGPContainer {
+  padding-bottom: 32px;
+}
+
+#nextGPName {
+  color: #5c2727;
+}

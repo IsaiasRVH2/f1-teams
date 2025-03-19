@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - F1 Scoreboard</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Hoja de estilos personalizada -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-light">
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-custom navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand navbar-text active" id="title-text" href="/"><img src="https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg" alt="F1 Logo" width="auto" height="32px">Scores</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link navbar-text active" href="/">Inicio</a>
+              </li>
+              <% if (user) { %>
+                <li class="nav-item">
+                <a class="nav-link navbar-text active" href="/add-team">Agregar Equipo</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link navbar-text active" href="/add-drivers">Seleccionar Pilotos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link navbar-text active" href="/logout">Cerrar sesión</a>
+                </li>
+              <% } else { %>
+                <li class="nav-item">
+                  <a class="nav-link navbar-text active" href="/login">Iniciar sesión</a>
+                </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-header text-center">
+            <h4>Iniciar Sesión</h4>
+          </div>
+          <div class="card-body">
+            <% if (error) { %>
+              <div class="alert alert-danger" role="alert">
+                <%= error %>
+              </div>
+            <% } %>
+            <form action="/login" method="POST">
+              <div class="mb-3">
+                <label for="username" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="username" name="username" required />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" required />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+            </form>
+          </div>
+        </div>
+        <p class="text-center mt-3 text-muted">© 2025 F1 Scoreboard</p>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

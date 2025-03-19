@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Agregar Pilotos</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Hoja de estilos personalizada -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+   <!-- Barra de navegación -->
+   <nav class="navbar navbar-expand-lg navbar-custom navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand navbar-text active" id="title-text" href="/"><img src="https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg" alt="F1 Logo" width="auto" height="32px">Scores</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link navbar-text active" href="/">Inicio</a>
+          </li>
+          <% if (user) { %>
+            <li class="nav-item">
+            <a class="nav-link navbar-text active" href="/add-team">Agregar Equipo</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link navbar-text active" href="/add-drivers">Seleccionar Pilotos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link navbar-text active" href="/logout">Cerrar sesión</a>
+            </li>
+          <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link navbar-text active" href="/login">Iniciar sesión</a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h2>Agregar Pilotos para un GP</h2>
+    
+    <% if (error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+    <% if (success) { %>
+      <div class="alert alert-success"><%= success %></div>
+    <% } %>
+    
+    <form action="/add-drivers" method="POST">
+      <!-- Selección del GP -->
+      <div class="mb-4">
+        <label for="gpId" class="form-label">Selecciona el GP</label>
+        <select name="gpId" id="gpId" class="form-select" required>
+          <option value="">-- Selecciona un GP --</option>
+          <% gps.forEach(function(gp) { %>
+            <option value="<%= gp.id %>"><%= gp.name %></option>
+          <% }); %>
+        </select>
+      </div>
+      
+      <!-- Para cada equipo se pide seleccionar Piloto 1 y Piloto 2 -->
+      <h4>Selecciona los pilotos para cada equipo:</h4>
+      <small class="text-muted">Nota: No se pueden repetir pilotos.</small>
+      <% teams.forEach(function(team) { %>
+        <div class="mb-3 border p-3">
+          <h5><%= team.team_name %></h5>
+          <!-- Campo oculto para enviar el ID del equipo -->
+          <input type="hidden" name="drivers[<%= team.id %>][teamId]" value="<%= team.id %>">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="pilot1_<%= team.id %>" class="form-label">Piloto 1</label>
+              <select name="drivers[<%= team.id %>][pilot1]" id="pilot1_<%= team.id %>" class="form-select" required>
+                <option value="">-- Selecciona Piloto 1 --</option>
+                <% pilots.forEach(function(pilot) { %>
+                  <option value="<%= pilot.id %>"><%= pilot.name + ' ' + pilot.surname %></option>
+                <% }); %>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="pilot2_<%= team.id %>" class="form-label">Piloto 2</label>
+              <select name="drivers[<%= team.id %>][pilot2]" id="pilot2_<%= team.id %>" class="form-select" required>
+                <option value="">-- Selecciona Piloto 2 --</option>
+                <% pilots.forEach(function(pilot) { %>
+                  <option value="<%= pilot.id %>"><%= pilot.name + ' ' + pilot.surname %></option>
+                <% }); %>
+              </select>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+
+      
+      <button type="submit" class="btn btn-primary">Guardar Selecciones</button>
+    </form>
+  </div>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
